@@ -45,3 +45,24 @@ document.getElementById('yInput').addEventListener('input', function(e) {
     document.getElementById('overlayImage').style.top = e.target.value + '%';
     document.getElementById('ySlider').value = e.target.value;
 });
+
+document.getElementById('downloadImage').addEventListener('click', function() {
+    var canvas = document.createElement('canvas');
+    var context = canvas.getContext('2d');
+    var baseLayerImage = document.getElementById('baseLayerImage');
+    var overlayImage = document.getElementById('overlayImage');
+    canvas.width = baseLayerImage.width;
+    canvas.height = baseLayerImage.height;
+    context.drawImage(baseLayerImage, 0, 0);
+    var overlayWidth = overlayImage.offsetWidth / baseLayerImage.offsetWidth * baseLayerImage.width;
+    var overlayHeight = overlayImage.offsetHeight / baseLayerImage.offsetHeight * baseLayerImage.height;
+    var overlayX = parseFloat(overlayImage.style.left) / 100 * baseLayerImage.width;
+    var overlayY = parseFloat(overlayImage.style.top) / 100 * baseLayerImage.height;
+    context.drawImage(overlayImage, overlayX, overlayY, overlayWidth, overlayHeight);
+    var dataUrl = canvas.toDataURL('image/png');
+    var a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = 'combined.png';
+    a.click();
+});
+
