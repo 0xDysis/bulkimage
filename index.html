@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Overlay</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <input type="file" id="baseLayer" accept="image/*">
+    <button id="removeBaseLayer">Remove Base Layer</button>
+    <input type="file" id="overlay" accept="image/*">
+    <button id="removeOverlay">Remove Overlay</button>
+    <div id="imageContainer">
+        <img id="baseLayerImage">
+        <img id="overlayImage" style="position: absolute;">
+    </div>
+    <input type="range" id="sizeSlider" min="1" max="100" value="50">
+    <input type="range" id="xSlider" min="0" max="100" value="50">
+    <input type="range" id="ySlider" min="0" max="100" value="50">
+    <script src="script.js"></script>
+</body>
+</html>
+
+

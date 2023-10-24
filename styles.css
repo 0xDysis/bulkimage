@@ -1,0 +1,9 @@
+#imageContainer {
+    position: relative;
+    width: 1024px;
+    height: 1024px;
+}
+
+#overlayImage {
+    width: 50%;
+}
