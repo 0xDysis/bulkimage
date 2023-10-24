@@ -10,6 +10,11 @@
     <button id="downloadImage">Download Image</button>
     <input type="file" id="overlay" accept="image/*">
     <button id="removeOverlay">Remove Overlay</button>
+    <select id="filterSelector">
+        <option value="none">None</option>
+        <option value="grayscale(100%)">Black and White</option>
+        <option value="invert(100%)">Negative</option>
+    </select>
     <div id="imageContainer">
         <img id="baseLayerImage">
         <img id="overlayImage" style="position: absolute;">
@@ -26,5 +31,4 @@
     <script src="script.js"></script>
 </body>
 </html>
-
 

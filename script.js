@@ -46,6 +46,10 @@ document.getElementById('yInput').addEventListener('input', function(e) {
     document.getElementById('ySlider').value = e.target.value;
 });
 
+document.getElementById('filterSelector').addEventListener('change', function(e) {
+    document.getElementById('overlayImage').style.filter = e.target.value;
+});
+
 document.getElementById('downloadImage').addEventListener('click', function() {
     var canvas = document.createElement('canvas');
     var context = canvas.getContext('2d');
@@ -58,11 +62,24 @@ document.getElementById('downloadImage').addEventListener('click', function() {
     var overlayHeight = overlayImage.offsetHeight / baseLayerImage.offsetHeight * baseLayerImage.height;
     var overlayX = parseFloat(overlayImage.style.left) / 100 * baseLayerImage.width;
     var overlayY = parseFloat(overlayImage.style.top) / 100 * baseLayerImage.height;
+
+    // Save the current context state
+    context.save();
+
+    // Apply the filter to the context
+    context.filter = overlayImage.style.filter;
+
+    // Draw the overlay image with the filter applied
     context.drawImage(overlayImage, overlayX, overlayY, overlayWidth, overlayHeight);
+
+    // Restore the context state to remove the filter
+    context.restore();
+
     var dataUrl = canvas.toDataURL('image/png');
     var a = document.createElement('a');
     a.href = dataUrl;
     a.download = 'combined.png';
     a.click();
 });
+
 
