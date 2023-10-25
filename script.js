@@ -94,6 +94,23 @@ document.getElementById('shadowHeightInput').addEventListener('input', function(
     document.getElementById('shadowHeightSlider').value = e.target.value;
     document.getElementById('shadowBar').style.height = e.target.value + '%';
 });
+document.getElementById('toggleShadowControls').addEventListener('click', function() {
+    var shadowControls = document.getElementById('shadowControls');
+    if (shadowControls.style.display === 'none') {
+        shadowControls.style.display = 'block';
+    } else {
+        shadowControls.style.display = 'none';
+    }
+});
+document.getElementById('shadowTranslucenceSlider').addEventListener('input', function(e) {
+    document.getElementById('shadowTranslucenceInput').value = e.target.value;
+    document.getElementById('shadowBar').style.backgroundColor = 'rgba(0, 0, 0, ' + e.target.value + ')';
+});
+
+document.getElementById('shadowTranslucenceInput').addEventListener('input', function(e) {
+    document.getElementById('shadowTranslucenceSlider').value = e.target.value;
+    document.getElementById('shadowBar').style.backgroundColor = 'rgba(0, 0, 0, ' + e.target.value + ')';
+});
 
 
 
@@ -130,7 +147,8 @@ document.getElementById('downloadImages').addEventListener('click', function() {
             context.filter = filter;
             drawImageWithShadow(context, img, overlayX, overlayY, overlayWidth, overlayHeight, shadowX, shadowY, shadowWidth, shadowHeight);
             context.restore();
-            var dataUrl = canvas.toDataURL('image/png');
+            var dataUrl = canvas.toDataURL('image/webp');
+
             var a = document.createElement('a');
             a.href = dataUrl;
             a.download = 'combined' + index + '.png';
