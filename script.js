@@ -52,9 +52,8 @@ document.getElementById('yInput').addEventListener('input', function(e) {
     document.getElementById('ySlider').value = e.target.value;
 });
 
-document.getElementById('filterSelector').addEventListener('change', function(e) {
-    document.getElementById('overlayImage').style.filter = e.target.value;
-});
+
+
 document.getElementById('shadowXSlider').addEventListener('input', function(e) {
     document.getElementById('shadowXInput').value = e.target.value;
     document.getElementById('shadowBar').style.left = e.target.value + '%';
@@ -111,6 +110,35 @@ document.getElementById('shadowTranslucenceInput').addEventListener('input', fun
     document.getElementById('shadowTranslucenceSlider').value = e.target.value;
     document.getElementById('shadowBar').style.backgroundColor = 'rgba(0, 0, 0, ' + e.target.value + ')';
 });
+// Add this event listener for the checkbox
+document.getElementById('shadowCheckbox').addEventListener('change', function(e) {
+    if (e.target.checked) {
+        // If the checkbox is checked, show the shadow controls and apply the shadow
+        document.getElementById('shadowControls').style.display = 'block';
+        document.getElementById('shadowBar').style.display = 'block';
+    } else {
+        // If the checkbox is unchecked, hide the shadow controls and remove the shadow
+        document.getElementById('shadowControls').style.display = 'none';
+        document.getElementById('shadowBar').style.display = 'none';
+    }
+});
+
+var checkboxes = document.querySelectorAll('#filterSelector input[type="checkbox"]');
+
+checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        var filters = [];
+        checkboxes.forEach(function(c) {
+            if (c.checked) {
+                filters.push(c.value);
+            }
+        });
+        document.getElementById('overlayImage').style.filter = filters.join(' ');
+    });
+});
+
+
+
 
 
 
@@ -134,10 +162,21 @@ document.getElementById('downloadImages').addEventListener('click', function() {
 
     function drawImageWithShadow(context, img, x, y, width, height, shadowX, shadowY, shadowWidth, shadowHeight) {
         context.drawImage(img, x, y, width, height);
-        context.fillStyle = 'rgba(0, 0, 0, 0.5)'; // Adjust the shadow color and opacity here
-        context.fillRect(shadowX, shadowY, shadowWidth, shadowHeight);
+        
+        // Check if the shadow bar is visible on the webpage
+        var shadowBarStyle = window.getComputedStyle(document.getElementById('shadowBar'));
+        if (shadowBarStyle.display !== 'none') {
+            // If the shadow bar is visible, get its opacity
+            var shadowOpacity = parseFloat(shadowBarStyle.backgroundColor.split(',').pop().slice(0, -1));
+            
+            // Draw the shadow bar on the canvas with the correct opacity
+            context.fillStyle = 'rgba(0, 0, 0, ' + shadowOpacity + ')';
+            context.fillRect(shadowX, shadowY, shadowWidth, shadowHeight);
+        }
     }
-
+    
+   
+    
     overlayImages.forEach(function(src, index) {
         var img = new Image();
         img.onload = function() {

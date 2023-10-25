@@ -10,17 +10,35 @@
     <button id="downloadImages">Download Images</button>
     <input type="file" id="overlays" accept="image/*" multiple>
     <button id="removeOverlays">Remove Overlays</button>
-    <select id="filterSelector">
-        <option value="none">None</option>
-        <option value="grayscale(100%)">Black and White</option>
-        <option value="invert(100%)">Negative</option>
-    </select>
+    <div id="filterSelector">
+        <input type="checkbox" id="grayscale" value="grayscale(100%)">
+        <label for="grayscale">Black and White</label>
+        <input type="checkbox" id="invert" value="invert(100%)">
+        <label for="invert">Negative</label>
+        <input type="checkbox" id="sepia" value="sepia(100%)">
+        <label for="sepia">Sepia</label>
+        <input type="checkbox" id="saturate" value="saturate(200%)">
+        <label for="saturate">Saturate</label>
+        <input type="checkbox" id="hue-rotate" value="hue-rotate(90deg)">
+        <label for="hue-rotate">Hue Rotate</label>
+        <input type="checkbox" id="brightness" value="brightness(200%)">
+        <label for="brightness">Brightness</label>
+        <input type="checkbox" id="contrast" value="contrast(200%)">
+        <label for="contrast">Contrast</label>
+        <input type="checkbox" id="blur" value="blur(5px)">
+        <label for="blur">Blur</label>
+        <input type="checkbox" id="drop-shadow" value="drop-shadow(0 0 10px #000)">
+        <label for="drop-shadow">Drop Shadow</label>
+    </div>
+    
+    
     <div id="imageContainer">
         <img id="baseLayerImage">
         <img id="overlayImage" style="position: absolute;">
         <div id="shadowBar" style="position: absolute; background-color: rgba(0, 0, 0, 0.5);"></div>
     </div>
-    
+    <input type="checkbox" id="shadowCheckbox"> Enable Shadow Bar
+
     <button id="toggleShadowControls">Toggle Shadow Controls</button>
     <div id="shadowControls" style="display: none;">
         <label for="sizeSlider">Size:</label>
