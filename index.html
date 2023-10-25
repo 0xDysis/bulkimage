@@ -18,7 +18,9 @@
     <div id="imageContainer">
         <img id="baseLayerImage">
         <img id="overlayImage" style="position: absolute;">
+        <div id="shadowBar" style="position: absolute; background-color: rgba(0, 0, 0, 0.5);"></div>
     </div>
+    
     <label for="sizeSlider">Size:</label>
     <input type="range" id="sizeSlider" min="1" max="100" value="50">
     <input type="number" id="sizeInput" min="1" max="100" value="50">
@@ -28,7 +30,18 @@
     <label for="ySlider">Y:</label>
     <input type="range" id="ySlider" min="0" max="100" value="50">
     <input type="number" id="yInput" min="0" max="100" value="50">
+    <label for="shadowXSlider">Shadow X:</label>
+    <input type="range" id="shadowXSlider" min="0" max="100" value="50">
+    <input type="number" id="shadowXInput" min="0" max="100" value="50">
+    <label for="shadowYSlider">Shadow Y:</label>
+    <input type="range" id="shadowYSlider" min="0" max="100" value="50">
+    <input type="number" id="shadowYInput" min="0" max="100" value="50">
+    <label for="shadowWidthSlider">Shadow Width:</label>
+    <input type="range" id="shadowWidthSlider" min="1" max="100" value="50">
+    <input type="number" id="shadowWidthInput" min="1" max="100" value="50">
+    <label for="shadowHeightSlider">Shadow Height:</label>
+    <input type="range" id="shadowHeightSlider" min="1" max="100" value="50">
+    <input type="number" id="shadowHeightInput" min="1" max="100" value="50">
     <script src="script.js"></script>
 </body>
 </html>
-

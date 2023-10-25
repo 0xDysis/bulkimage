@@ -55,6 +55,47 @@ document.getElementById('yInput').addEventListener('input', function(e) {
 document.getElementById('filterSelector').addEventListener('change', function(e) {
     document.getElementById('overlayImage').style.filter = e.target.value;
 });
+document.getElementById('shadowXSlider').addEventListener('input', function(e) {
+    document.getElementById('shadowXInput').value = e.target.value;
+    document.getElementById('shadowBar').style.left = e.target.value + '%';
+});
+
+document.getElementById('shadowXInput').addEventListener('input', function(e) {
+    document.getElementById('shadowXSlider').value = e.target.value;
+    document.getElementById('shadowBar').style.left = e.target.value + '%';
+});
+
+document.getElementById('shadowYSlider').addEventListener('input', function(e) {
+    document.getElementById('shadowYInput').value = e.target.value;
+    document.getElementById('shadowBar').style.top = e.target.value + '%';
+});
+
+document.getElementById('shadowYInput').addEventListener('input', function(e) {
+    document.getElementById('shadowYSlider').value = e.target.value;
+    document.getElementById('shadowBar').style.top = e.target.value + '%';
+});
+
+document.getElementById('shadowWidthSlider').addEventListener('input', function(e) {
+    document.getElementById('shadowWidthInput').value = e.target.value;
+    document.getElementById('shadowBar').style.width = e.target.value + '%';
+});
+
+document.getElementById('shadowWidthInput').addEventListener('input', function(e) {
+    document.getElementById('shadowWidthSlider').value = e.target.value;
+    document.getElementById('shadowBar').style.width = e.target.value + '%';
+});
+
+document.getElementById('shadowHeightSlider').addEventListener('input', function(e) {
+    document.getElementById('shadowHeightInput').value = e.target.value;
+    document.getElementById('shadowBar').style.height = e.target.value + '%';
+});
+
+document.getElementById('shadowHeightInput').addEventListener('input', function(e) {
+    document.getElementById('shadowHeightSlider').value = e.target.value;
+    document.getElementById('shadowBar').style.height = e.target.value + '%';
+});
+
+
 
 document.getElementById('downloadImages').addEventListener('click', function() {
     var canvas = document.createElement('canvas');
@@ -69,14 +110,25 @@ document.getElementById('downloadImages').addEventListener('click', function() {
     var overlayY = parseFloat(overlayImage.style.top) / 100 * baseLayerImage.height;
     var filter = overlayImage.style.filter;
 
+    var shadowX = parseFloat(document.getElementById('shadowXInput').value) / 100 * baseLayerImage.width;
+    var shadowY = parseFloat(document.getElementById('shadowYInput').value) / 100 * baseLayerImage.height;
+    var shadowWidth = parseFloat(document.getElementById('shadowWidthInput').value) / 100 * baseLayerImage.width;
+    var shadowHeight = parseFloat(document.getElementById('shadowHeightInput').value) / 100 * baseLayerImage.height;
+
+    function drawImageWithShadow(context, img, x, y, width, height, shadowX, shadowY, shadowWidth, shadowHeight) {
+        context.drawImage(img, x, y, width, height);
+        context.fillStyle = 'rgba(0, 0, 0, 0.5)'; // Adjust the shadow color and opacity here
+        context.fillRect(shadowX, shadowY, shadowWidth, shadowHeight);
+    }
+
     overlayImages.forEach(function(src, index) {
         var img = new Image();
         img.onload = function() {
             context.clearRect(0, 0, canvas.width, canvas.height);
-            context.drawImage(baseLayerImage, 0, 0);
+            drawImageWithShadow(context, baseLayerImage, 0, 0, baseLayerImage.width, baseLayerImage.height, shadowX, shadowY, shadowWidth, shadowHeight);
             context.save();
             context.filter = filter;
-            context.drawImage(img, overlayX, overlayY, overlayWidth, overlayHeight);
+            drawImageWithShadow(context, img, overlayX, overlayY, overlayWidth, overlayHeight, shadowX, shadowY, shadowWidth, shadowHeight);
             context.restore();
             var dataUrl = canvas.toDataURL('image/png');
             var a = document.createElement('a');
@@ -87,5 +139,4 @@ document.getElementById('downloadImages').addEventListener('click', function() {
         img.src = src;
     });
 });
-
 
